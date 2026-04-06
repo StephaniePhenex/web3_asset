@@ -1,10 +1,118 @@
 ---
-description: Minimal delivery & health — decision gate before new abstractions; stack playbook in docs/DELIVERY_PLAYBOOK.md
+description: Minimal Delivery & Health — decision gate, over-engineering score, stack defaults, React render purity; applies minimal-delivery-health to web3_asset
 alwaysApply: true
 ---
 
-# Minimal delivery (web3_asset)
+# Minimal Delivery & Health (web3_asset / CAP v3.0)
 
-Before adding layers, services, queues, or infra changes, follow [docs/DELIVERY_PLAYBOOK.md](docs/DELIVERY_PLAYBOOK.md): answer **problem → evidence → smallest fix**; use the over-engineering score; default to **simplicity** (see playbook §3). React App Router: **render stays pure** — side effects only in handlers, `useEffect`, or Server Actions / Route Handlers.
+This rule applies the **minimal-delivery-health** discipline in-repo. Full stack notes: `docs/DELIVERY_PLAYBOOK.md`. Architecture risks (outbox, idempotency): `docs/ARCHITECTURE.md`.
 
-Dual-write / outbox and chain idempotency: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) when relevant — do not implement outbox without concrete failure evidence.
+---
+
+## 0. Decision gate (mandatory before abstractions)
+
+Before adding layers, services, queues, infra refactors, or new patterns, answer:
+
+1. What **concrete problem** exists **today**?
+2. What **evidence** proves it? (bug, metric, p95, failure rate)
+3. What is the **smallest possible fix**?
+
+**Hard rules**
+
+- Cannot answer all three → **do not proceed**.
+- Problem is hypothetical → **defer**; document a **trigger** for revisit.
+- Fix is not the smallest → **simplify** first.
+
+---
+
+## 1. Over-engineering score
+
+Rate each signal **0 / 1 / 2** (max **12**). Sum:
+
+| Signal | Ask |
+|--------|-----|
+| No evidence | Real bug/metric/user pain today? |
+| Hypothetical future | “Maybe someday”? |
+| Flexibility tax | Abstraction/config for unused cases? |
+| Boil the ocean | Multiple future problems in one change? |
+| Clever over clear | Harder to read for elegance? |
+| Regression risk | More complexity, latency, or failure surface? |
+
+| Total | Action |
+|-------|--------|
+| 0–2 | Safe |
+| 3–5 | Caution: justify; name validation metric |
+| 6–8 | High risk: smaller alternative or incremental steps |
+| 9–12 | Block: document trigger only |
+
+**Tie-break:** less abstraction, fewer parts, easier rollback.
+
+---
+
+## 2. Default bias (unless evidence says otherwise)
+
+- Duplication **>** abstraction
+- Simple flow **>** flexible system
+- Sync **>** async (do not add a second queue without measured need)
+- Monolith **>** distributed (Next + workers in this repo until scale forces split)
+- Hardcode **>** config until repeated **≥3** times
+- Explicit **>** generic
+
+**CAP-specific:** BullMQ is justified for webhooks vs chain; **do not** add another queue for “future scaling” without metrics.
+
+---
+
+## 3. Anti-patterns (defer without evidence)
+
+- Microservice/repo split with a tiny team
+- Repository layer with **one** Supabase implementation
+- Feature flags without an active experiment
+- Caching before profiling queries and indexes
+- Multi-tenant modeling when there is one publisher
+
+---
+
+## 4. UI render path (purity)
+
+- **Render** = describe UI only (pure function of props/state).
+- **No** in render: `setState`, subscriptions, `fetch`, IO, global mutation.
+- **Server Components:** no browser APIs; no mutating globals during render.
+- Side effects: **event handlers**, **`useEffect`**, Server Actions, Route Handlers only.
+
+Violation = **architecture issue**, not style.
+
+---
+
+## 5. Stack conventions (this repo)
+
+| Area | Rule |
+|------|------|
+| Supabase | Migrations under `supabase/migrations/`; review RLS before anon exposure |
+| Secrets | Service role, private keys, webhooks = **server-only** — never `NEXT_PUBLIC_*` |
+| BullMQ | Timeout, max attempts, structured logs (`payment_id`, `order_id`, `job_id`); failed jobs = DLQ surface |
+| External APIs | Timeout + bounded retry + log on final failure |
+| Dual-write / outbox | Follow `docs/ARCHITECTURE.md` **only when** real incidents or metrics justify it — not preemptively |
+
+---
+
+## 6. Observability (minimum)
+
+- Health check for the serving process
+- Structured errors for webhooks and workers  
+Add APM when error/latency budgets exist — not by default.
+
+---
+
+## 7. Mini health review (when touching multiple layers)
+
+Time-box 15–30 min. Table: API / DB / UI / Jobs — status G-Y-R and top risk each.
+
+“Later” backlog items **must** include a **trigger** (e.g. when mint failure rate exceeds threshold for 24h). Tasks must be **PR-sized**, completable in ≤1 day.
+
+---
+
+## 8. Response style
+
+- Recommend the **smallest effective change**.
+- Optional follow-ups need a **trigger condition**.
+- Do **not** introduce new frameworks, extra queues, or microservices unless the user or evidence explicitly requires it.

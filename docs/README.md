@@ -2,7 +2,7 @@
 
 | Document | Description |
 |----------|-------------|
-| [`DELIVERY_PLAYBOOK.md`](DELIVERY_PLAYBOOK.md) | **Minimal delivery & health:** decision gate, over-engineering score, stack defaults, React render purity, observability floor — apply before new abstractions |
+| [`DELIVERY_PLAYBOOK.md`](DELIVERY_PLAYBOOK.md) | **Minimal delivery & health:** decision gate, over-engineering score, stack defaults, React render purity, observability floor — mirrored in [`.cursor/rules/delivery-playbook.mdc`](../.cursor/rules/delivery-playbook.mdc) (`alwaysApply`) |
 | [`ARCHITECTURE.md`](ARCHITECTURE.md) | CAP v3.0 design rationale: BullMQ decoupling, write-through cache, dual-write risks, mint idempotency, key management, Realtime/DLQ guidance |
 | [`MVP_DEVELOPMENT_PLAN.md`](MVP_DEVELOPMENT_PLAN.md) | Two-week MVP sprint: day-by-day tasks, dependencies, milestones |
 

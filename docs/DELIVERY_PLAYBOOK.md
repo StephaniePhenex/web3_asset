@@ -2,6 +2,8 @@
 
 This repo adopts **Minimal Delivery & Health** guardrails: avoid over-engineering, ship the smallest fix that works, and keep UI render paths pure. The generic rules live in the Cursor skill `minimal-delivery-health`; **this file is the stack-specific playbook** for CAP v3.0 / `web3_asset`.
 
+**Cursor:** the same rules are enforced as an always-on workspace rule in [`.cursor/rules/delivery-playbook.mdc`](../.cursor/rules/delivery-playbook.mdc) (`alwaysApply: true`). Edit that file if you change global delivery policy.
+
 ---
 
 ## 1. Decision gate (before new abstractions)
