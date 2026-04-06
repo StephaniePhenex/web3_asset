@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "redis:up": "docker compose up -d",
-    "redis:down": "docker compose down"
+    "redis:down": "docker compose down",
+    "worker:mint": "tsx scripts/mint-worker.ts",
+    "queue:smoke": "tsx scripts/enqueue-mint-smoke.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.101.1",
@@ -26,8 +28,10 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
+    "dotenv": "^16.4.7",
     "eslint-config-next": "16.2.2",
     "tailwindcss": "^4",
+    "tsx": "^4.19.3",
     "typescript": "^5"
   }
 }

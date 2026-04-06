@@ -74,12 +74,15 @@ flowchart LR
 ## Repository layout
 
 ```
-├── src/app/                 # Next.js App Router (pages, layouts)
+├── scripts/                 # Node scripts (mint worker, queue smoke) — `tsx`
+├── src/app/                 # Next.js App Router (pages, layouts, API routes)
+├── src/lib/                 # Redis, BullMQ queue, env helpers
 ├── supabase/
 │   ├── config.toml          # Local Supabase CLI (ports may differ if multiple projects run locally)
 │   └── migrations/          # SQL migrations (source of truth for schema)
 ├── docs/
 │   ├── README.md                  # Documentation index
+│   ├── sprints/                   # Day-by-day sprint logs (Day 1, Day 2, …)
 │   ├── DELIVERY_PLAYBOOK.md       # Minimal delivery & health guardrails (stack-specific)
 │   ├── ARCHITECTURE.md            # Rationale, risks, mitigations (outbox, DLQ, keys)
 │   └── MVP_DEVELOPMENT_PLAN.md    # Two-week MVP roadmap
@@ -178,6 +181,8 @@ supabase stop
 | `npm run build` / `npm start` | Production build & serve |
 | `npm run lint` | ESLint |
 | `npm run redis:up` / `redis:down` | Local Redis via Docker Compose |
+| `npm run worker:mint` | BullMQ worker (placeholder mint processor) **+ Redis running** |
+| `npm run queue:smoke` | Enqueue one test mint job (requires `worker:mint` in another terminal) |
 
 ---
 

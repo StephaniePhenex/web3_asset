@@ -7,3 +7,10 @@
 | [`MVP_DEVELOPMENT_PLAN.md`](MVP_DEVELOPMENT_PLAN.md) | Two-week MVP sprint: day-by-day tasks, dependencies, milestones |
 
 Start with **delivery playbook** when changing scope or structure; **architecture** for why and risks; **MVP plan** for scheduling.
+
+### Sprint logs
+
+| Log | Sprint day |
+|-----|------------|
+| [`sprints/day-01-log.md`](sprints/day-01-log.md) | Day 1 — setup, schema, Redis, deferrals |
+| [`sprints/day-02-log.md`](sprints/day-02-log.md) | Day 2 — BullMQ mint queue skeleton |
