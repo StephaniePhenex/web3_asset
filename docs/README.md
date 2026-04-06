@@ -14,3 +14,4 @@ Start with **delivery playbook** when changing scope or structure; **architectur
 |-----|------------|
 | [`sprints/day-01-log.md`](sprints/day-01-log.md) | Day 1 — setup, schema, Redis, deferrals |
 | [`sprints/day-02-log.md`](sprints/day-02-log.md) | Day 2 — BullMQ mint queue skeleton |
+| [`sprints/day-03-log.md`](sprints/day-03-log.md) | Day 3 — Crossmint placeholder webhook, orders, idempotency |

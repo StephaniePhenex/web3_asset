@@ -184,6 +184,8 @@ supabase stop
 | `npm run worker:mint` | BullMQ worker (placeholder mint processor) **+ Redis running** |
 | `npm run queue:smoke` | Enqueue one test mint job (requires `worker:mint` in another terminal) |
 
+**Payment webhook (Day 3):** `POST /api/webhooks/crossmint` — placeholder shared-secret auth; requires `CROSSMINT_WEBHOOK_SECRET` and Supabase service role. See [`docs/sprints/day-03-log.md`](docs/sprints/day-03-log.md) for curl example.
+
 ---
 
 ## Roadmap
