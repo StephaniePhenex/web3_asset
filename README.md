@@ -204,6 +204,8 @@ supabase stop    # when finished
 
 **Payment webhook (Day 3):** `POST /api/webhooks/crossmint` — placeholder shared-secret auth; requires `CROSSMINT_WEBHOOK_SECRET` and Supabase service role. See [`docs/sprints/day-03-log.md`](docs/sprints/day-03-log.md) for curl example.
 
+**Mint worker (Day 4):** `MINT_MODE=mock` (default, no chain) or `MINT_MODE=chain` with `THIRDWEB_PRIVATE_KEY`, `CHAIN_RPC_URL`, `NFT_CONTRACT_ADDRESS`. See [`docs/sprints/day-04-log.md`](docs/sprints/day-04-log.md).
+
 ---
 
 ## Roadmap

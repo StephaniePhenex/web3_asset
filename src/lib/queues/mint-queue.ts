@@ -8,6 +8,8 @@ export type MintJobPayload = {
   paymentId: string;
   userAddress: string;
   articleId: string;
+  /** Set by payment webhook for DB updates; optional for smoke scripts. */
+  orderId?: string;
 };
 
 let queue: Queue | null = null;

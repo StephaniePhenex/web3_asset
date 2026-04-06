@@ -106,7 +106,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Database error" }, { status: 500 });
   }
 
-  const payload: MintJobPayload = { paymentId, userAddress, articleId };
+  const payload: MintJobPayload = {
+    paymentId,
+    userAddress,
+    articleId,
+    orderId: inserted.id,
+  };
   const queue = getMintQueue();
 
   try {
