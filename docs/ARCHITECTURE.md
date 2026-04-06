@@ -123,6 +123,7 @@ BullMQ **failed jobs** are the practical **dead-letter surface**. Production nee
 |----------|---------|
 | [Repository `README.md`](../README.md) | Repo overview, stack, quick start |
 | [`docs/README.md`](README.md) | Index of all docs in this folder |
+| [`DELIVERY_PLAYBOOK.md`](DELIVERY_PLAYBOOK.md) | Minimal delivery gate, stack defaults, UI purity |
 | [`MVP_DEVELOPMENT_PLAN.md`](MVP_DEVELOPMENT_PLAN.md) | Day-by-day MVP sprint |
 
 ---

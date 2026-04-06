@@ -1,0 +1,10 @@
+---
+description: Minimal delivery & health — decision gate before new abstractions; stack playbook in docs/DELIVERY_PLAYBOOK.md
+alwaysApply: true
+---
+
+# Minimal delivery (web3_asset)
+
+Before adding layers, services, queues, or infra changes, follow [docs/DELIVERY_PLAYBOOK.md](docs/DELIVERY_PLAYBOOK.md): answer **problem → evidence → smallest fix**; use the over-engineering score; default to **simplicity** (see playbook §3). React App Router: **render stays pure** — side effects only in handlers, `useEffect`, or Server Actions / Route Handlers.
+
+Dual-write / outbox and chain idempotency: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) when relevant — do not implement outbox without concrete failure evidence.
