@@ -31,6 +31,18 @@ export async function upsertOwnershipFromTransfer(params: {
   });
 }
 
+/** Refresh cache after on-chain `ownerOf` check (reconciliation / read path). */
+export async function upsertOwnershipFromSync(params: {
+  ownerAddress: string;
+  articleId: string;
+  tokenId: string;
+}): Promise<void> {
+  await upsertRow({
+    ...params,
+    source: "SYNC",
+  });
+}
+
 async function upsertRow(params: {
   ownerAddress: string;
   articleId: string;

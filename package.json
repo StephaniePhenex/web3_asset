@@ -13,7 +13,10 @@
     "redis:down": "docker compose down",
     "worker:mint": "tsx scripts/mint-worker.ts",
     "queue:smoke": "tsx scripts/enqueue-mint-smoke.ts",
-    "reconcile:ownership": "tsx scripts/reconcile-ownership-cache.ts"
+    "reconcile:ownership": "tsx scripts/reconcile-ownership-cache.ts",
+    "smoke:article-content": "tsx scripts/smoke-get-article-content.ts",
+    "encrypt:article": "tsx scripts/encrypt-article-body.ts",
+    "e2e:mvp": "tsx scripts/e2e-mvp-check.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.101.1",

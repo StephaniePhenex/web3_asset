@@ -143,6 +143,8 @@ npm run dev
 # http://localhost:3000
 ```
 
+**Article page (Day 9):** `/article/11111111-1111-4111-8111-111111111111` — connect wallet, sign, Web Crypto decrypt. For local decrypt, set **`NEXT_PUBLIC_ARTICLE_CONTENT_KEY`** to the same 64-hex value as **`ARTICLE_CONTENT_KEY`** (dev-only).
+
 **Build:**
 
 ```bash
@@ -198,6 +200,7 @@ supabase stop    # when finished
 | `npm run build` / `npm start` | Production build & serve |
 | `npm run lint` | ESLint |
 | `npm run test` | Vitest unit tests (webhook helpers) |
+| `npm run e2e:mvp` | Day 10 gate: tests + lint; optional `E2E_WITH_BUILD=1`, `E2E_BASE_URL` for `/api/health` |
 | `npm run redis:up` / `redis:down` | Local Redis via Docker Compose |
 | `npm run worker:mint` | BullMQ worker (placeholder mint processor) **+ Redis running** |
 | `npm run queue:smoke` | Enqueue one test mint job (requires `worker:mint` in another terminal) |
