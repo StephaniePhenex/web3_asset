@@ -23,7 +23,7 @@ Runnable repo, secrets pattern, database matching MVP, Redis available locally.
 | Redis (Docker Compose) | **Done** | [`docker-compose.yml`](../../docker-compose.yml), scripts `npm run redis:up` / `redis:down`. |
 | `.env.example` | **Done** | Supabase, Redis, Thirdweb, Crossmint placeholders. |
 | Cloud Supabase project | **Deferred** | Free tier project limit reached; **local-first** per team decision. **Trigger:** spare free slot, paid org, or deploy to staging/prod. |
-| CI (lint/test) | **Not done** | No `.github/workflows` yet. **Trigger:** first PR to `main` or Day 1 closure criteria tightened. |
+| CI (lint/test) | **Done (Day 3)** | [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) — `npm ci`, lint, test, build on push/PR. |
 
 ---
 
@@ -36,7 +36,7 @@ Runnable repo, secrets pattern, database matching MVP, Redis available locally.
 | Redis reachable | **Yes** (Compose); optional [`GET /api/health`](../../src/app/api/health/route.ts) checks Redis when server runs |
 | App code connects to Supabase | **Partial** | Env vars documented; **Day 1 log closes with health route** — full `createClient` usage can land with first API that reads/writes DB. |
 
-**Conclusion:** Day 1 **accepted for local-first MVP** with explicit deferrals (monorepo, RLS, CI, cloud). Day 2 (BullMQ) depends on **Redis only**, not cloud DB.
+**Conclusion:** Day 1 **accepted for local-first MVP** with explicit deferrals (monorepo, RLS, cloud). CI added in Day 3. Day 2 (BullMQ) depends on **Redis only**, not cloud DB.
 
 ---
 

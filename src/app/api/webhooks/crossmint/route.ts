@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getMintQueue, type MintJobPayload } from "@/lib/queues/mint-queue";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
+import { parseMintWebhookFields } from "@/lib/crossmint-payload";
 import { verifyWebhookSecret } from "@/lib/webhook-secret";
 
 export const dynamic = "force-dynamic";
@@ -9,16 +10,10 @@ export function GET() {
   return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
 }
 
-type CrossmintWebhookBody = {
-  paymentId?: string;
-  userAddress?: string;
-  articleId?: string;
-};
-
 /**
  * Placeholder Crossmint-compatible payment webhook.
  * Auth: `Authorization: Bearer <CROSSMINT_WEBHOOK_SECRET>` or `X-Webhook-Secret`.
- * Body JSON: `{ "paymentId", "userAddress", "articleId" }` (articleId = UUID of `articles`).
+ * Body JSON: camelCase or snake_case — `{ paymentId|payment_id, userAddress|user_address, articleId|article_id }`.
  *
  * Idempotent on `payment_id`: duplicate deliveries return 200 `{ duplicate: true }` without re-enqueueing.
  * Swap `verifyWebhookSecret` for Crossmint's official verifier when integrating for real.
@@ -36,25 +31,25 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  let body: CrossmintWebhookBody;
+  let raw: Record<string, unknown>;
   try {
-    body = (await request.json()) as CrossmintWebhookBody;
+    raw = (await request.json()) as Record<string, unknown>;
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const paymentId = typeof body.paymentId === "string" ? body.paymentId.trim() : "";
-  const userAddress =
-    typeof body.userAddress === "string" ? body.userAddress.trim() : "";
-  const articleId =
-    typeof body.articleId === "string" ? body.articleId.trim() : "";
-
-  if (!paymentId || !userAddress || !articleId) {
+  const parsed = parseMintWebhookFields(raw);
+  if (!parsed) {
     return NextResponse.json(
-      { error: "paymentId, userAddress, and articleId are required" },
+      {
+        error:
+          "paymentId/payment_id, userAddress/user_address, and articleId/article_id are required",
+      },
       { status: 400 }
     );
   }
+
+  const { paymentId, userAddress, articleId } = parsed;
 
   const uuidRe =
     /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;

@@ -197,6 +197,7 @@ supabase stop    # when finished
 | `npm run dev` | Next.js development |
 | `npm run build` / `npm start` | Production build & serve |
 | `npm run lint` | ESLint |
+| `npm run test` | Vitest unit tests (webhook helpers) |
 | `npm run redis:up` / `redis:down` | Local Redis via Docker Compose |
 | `npm run worker:mint` | BullMQ worker (placeholder mint processor) **+ Redis running** |
 | `npm run queue:smoke` | Enqueue one test mint job (requires `worker:mint` in another terminal) |
