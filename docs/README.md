@@ -18,3 +18,4 @@ Start with **delivery playbook** when changing scope or structure; **architectur
 | [`sprints/day-02-log.md`](sprints/day-02-log.md) | Day 2 — BullMQ mint queue skeleton |
 | [`sprints/day-03-log.md`](sprints/day-03-log.md) | Day 3 — Crossmint placeholder webhook, orders, idempotency |
 | [`sprints/day-04-log.md`](sprints/day-04-log.md) | Day 4 — Thirdweb mint in worker, order status, mock vs chain |
+| [`sprints/day-05-log.md`](sprints/day-05-log.md) | Day 5 — ownership_cache write-through, Alchemy placeholder, reconcile |

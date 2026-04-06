@@ -201,10 +201,13 @@ supabase stop    # when finished
 | `npm run redis:up` / `redis:down` | Local Redis via Docker Compose |
 | `npm run worker:mint` | BullMQ worker (placeholder mint processor) **+ Redis running** |
 | `npm run queue:smoke` | Enqueue one test mint job (requires `worker:mint` in another terminal) |
+| `npm run reconcile:ownership` | Compare `ownership_cache` to on-chain `ownerOf` (needs RPC + contract; skips `mock-*` token ids) |
 
 **Payment webhook (Day 3):** `POST /api/webhooks/crossmint` — placeholder shared-secret auth; requires `CROSSMINT_WEBHOOK_SECRET` and Supabase service role. See [`docs/sprints/day-03-log.md`](docs/sprints/day-03-log.md) for curl example.
 
 **Mint worker (Day 4):** `MINT_MODE=mock` (default, no chain) or `MINT_MODE=chain` with `THIRDWEB_PRIVATE_KEY`, `CHAIN_RPC_URL`, `NFT_CONTRACT_ADDRESS`. See [`docs/sprints/day-04-log.md`](docs/sprints/day-04-log.md).
+
+**Ownership cache (Day 5):** mint worker upserts `ownership_cache` (`MINT`); `POST /api/webhooks/alchemy` for `TRANSFER` (placeholder secret); `npm run reconcile:ownership` for RPC vs DB. See [`docs/sprints/day-05-log.md`](docs/sprints/day-05-log.md).
 
 ---
 

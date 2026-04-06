@@ -8,6 +8,7 @@ import {
   type MintJobPayload,
 } from "../src/lib/queues/mint-queue";
 import { mockMintResult, mintArticleNft } from "../src/lib/mint-onchain";
+import { upsertOwnershipFromMint } from "../src/lib/ownership-cache";
 import {
   findOrderIdByPaymentId,
   updateOrder,
@@ -47,6 +48,12 @@ const worker = new Worker<MintJobPayload>(
         failure_reason: null,
       });
     }
+
+    await upsertOwnershipFromMint({
+      ownerAddress: userAddress,
+      articleId,
+      tokenId: result.tokenId,
+    });
 
     console.log(
       "[mint-worker] completed",
