@@ -111,6 +111,23 @@ npm install
 cp .env.example .env.local   # fill in real values before production
 ```
 
+### Recommended: local Supabase first (no cloud project quota)
+
+Use the **local Docker stack** so Day 3–4 (orders, webhooks against DB) work without consuming a hosted Free project.
+
+1. **`supabase start`** from the repo root (migrations apply on start). If another app already uses default ports, edit [`supabase/config.toml`](supabase/config.toml).
+2. **Fill Supabase vars in `.env.local`** from the CLI (local keys only):
+
+   ```bash
+   supabase status -o env
+   ```
+
+   Map: `API_URL` → `NEXT_PUBLIC_SUPABASE_URL`, `ANON_KEY` → `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SERVICE_ROLE_KEY` → `SUPABASE_SERVICE_ROLE_KEY`.
+
+3. **Redis:** `npm run redis:up` and `REDIS_URL=redis://127.0.0.1:6379` in `.env.local`.
+
+4. **Crossmint / `CROSSMINT_WEBHOOK_SECRET`:** defer until you need the real provider. Until then, drive the mint pipeline with **`npm run queue:smoke`** or **`POST /api/dev/enqueue-mint`** (development only). To test **`POST /api/webhooks/crossmint`** locally, set a throwaway value such as `CROSSMINT_WEBHOOK_SECRET=dev-local` in `.env.local` (never use that in production).
+
 **Redis (BullMQ):**
 
 ```bash
@@ -144,7 +161,7 @@ See [`.env.example`](.env.example). Minimum for upcoming work:
 | `SUPABASE_SERVICE_ROLE_KEY` | Server-only (webhooks, admin cache writes) — **never expose to client** |
 | `REDIS_URL` | BullMQ connection |
 | `THIRDWEB_PRIVATE_KEY` | Backend signer for contract calls |
-| `CROSSMINT_WEBHOOK_SECRET` | Verify payment webhooks |
+| `CROSSMINT_WEBHOOK_SECRET` | Payment webhook verification — optional for early dev (use dev enqueue / `queue:smoke` instead); set when testing `/api/webhooks/crossmint` or going live |
 
 ---
 
@@ -163,12 +180,12 @@ supabase link --project-ref <your-project-ref>
 supabase db push
 ```
 
-**Local Supabase** (optional):
+**Local Supabase** (recommended for development without a cloud project):
 
 ```bash
-supabase start
-# If another Supabase stack already uses default ports, adjust ports in supabase/config.toml
-supabase stop
+supabase start   # applies supabase/migrations to local Postgres
+supabase status -o env   # paste into .env.local — see “Recommended: local Supabase first” above
+supabase stop    # when finished
 ```
 
 ---

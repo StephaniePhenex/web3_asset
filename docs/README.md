@@ -8,6 +8,8 @@
 
 Start with **delivery playbook** when changing scope or structure; **architecture** for why and risks; **MVP plan** for scheduling.
 
+**Local dev without a cloud Supabase project:** see [Repository README — Recommended: local Supabase first](../README.md#recommended-local-supabase-first-no-cloud-project-quota).
+
 ### Sprint logs
 
 | Log | Sprint day |

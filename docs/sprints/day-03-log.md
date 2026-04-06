@@ -3,6 +3,8 @@
 **Date:** 2026-04-06  
 **Plan reference:** [MVP_DEVELOPMENT_PLAN.md § Day 3](../MVP_DEVELOPMENT_PLAN.md)
 
+**Local-first env:** [`README.md` § Recommended: local Supabase first](../../README.md#recommended-local-supabase-first-no-cloud-project-quota) — `supabase start` + `.env.local` from `supabase status -o env`; Crossmint secret can wait (use dev enqueue / `queue:smoke` until then).
+
 ---
 
 ## Check: Crossmint SDK / official verifier
