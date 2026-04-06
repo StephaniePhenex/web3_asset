@@ -4,6 +4,8 @@
 **Sprint length:** 2 weeks  
 **Team:** Frontend + Backend + Blockchain  
 
+**Related:** [Architecture rationale & risks](ARCHITECTURE.md) · [Documentation index](README.md)
+
 This document is a **day-by-day, dependency-aware roadmap** for shipping one premium article end-to-end: payment → mint queue → ownership cache → content gate → frontend display.
 
 ---

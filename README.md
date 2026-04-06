@@ -17,7 +17,7 @@ This repository implements the **Industrial-Grade Web3 Content Assetization Prot
 | **Content** | Ciphertext in Supabase; keys via signed URLs or Lit (placeholder); decrypt in memory for holders |
 | **UX** | Next.js App Router; Canvas display with copy friction; NFT badge; pending mint states |
 
-Detailed day-by-day delivery plan: [`docs/MVP_DEVELOPMENT_PLAN.md`](docs/MVP_DEVELOPMENT_PLAN.md).
+**Documentation:** [docs index](docs/README.md) · [Architecture rationale & risks](docs/ARCHITECTURE.md) · [MVP sprint plan](docs/MVP_DEVELOPMENT_PLAN.md)
 
 ---
 
@@ -79,7 +79,9 @@ flowchart LR
 │   ├── config.toml          # Local Supabase CLI (ports may differ if multiple projects run locally)
 │   └── migrations/          # SQL migrations (source of truth for schema)
 ├── docs/
-│   └── MVP_DEVELOPMENT_PLAN.md
+│   ├── README.md                 # Documentation index
+│   ├── ARCHITECTURE.md           # Rationale, risks, mitigations (outbox, DLQ, keys)
+│   └── MVP_DEVELOPMENT_PLAN.md # Two-week MVP roadmap
 ├── docker-compose.yml       # Redis for local BullMQ
 ├── .env.example             # Copy to .env / .env.local — never commit secrets
 └── package.json
@@ -181,6 +183,8 @@ supabase stop
 ## Roadmap
 
 MVP is scoped to **one premium article** and a **two-week** execution plan. See [`docs/MVP_DEVELOPMENT_PLAN.md`](docs/MVP_DEVELOPMENT_PLAN.md) for milestones, dependencies between frontend/backend/chain, and what can be deferred if time is tight.
+
+Design tradeoffs and production risks (dual writes, mint idempotency, keys, Realtime, DLQ): [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ---
 
